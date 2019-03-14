@@ -39,9 +39,12 @@ class Game:
                     self.highscore = int(f.read())
                 except:
                     self.highscore = 0
-        #load spritesheet image
+        # load spritesheet image
         self.spritesheet = Spritesheet(path.join(img_dir, SPRITESHEET))
-
+        # load sounds
+        self.snd_dir = path.join(self.dir, 'snd')
+        self.jump_sound = pg.mixer.Sound(path.join(self.snd_dir, 'Jump4.wav'))
+        self.jump_sound.set_volume(0.2)
     def new(self):
         # Start a new game
         self.score = 0
