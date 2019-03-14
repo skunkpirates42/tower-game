@@ -127,3 +127,20 @@ class Platform(pg.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x 
         self.rect.y = y
+
+class Pow(pg.sprite.Sprite):
+    def __init__(self, game, plat):
+        pg.sprite.Sprite.__init__(self)
+        self.game = game
+        self.plat = plat
+        self.type = choice(['boost'])
+        self.image = self.game.spritesheet.get_image(820, 1805, 71, 70)
+        self.image.set_colorkey(BLACK)
+        self.rect = self.image.get_rect()
+        self.rect.centerx = self.plat.rect.centerx
+        self.rect.bottom = self.plat.rect.top - 5
+
+    def update(self):
+        self.rect.bottom = self.plat.rect.top - 5
+        if not self.game.platforms.has(self.plat):
+            self.kill()
