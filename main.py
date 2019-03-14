@@ -1,9 +1,12 @@
 # Tower Game
 
+# File I/O (input/output)
+
 import pygame as pg
 import random
 from settings import *
 from sprites import *
+from os import path
 
 class Game:
     def __init__(self):
@@ -15,6 +18,19 @@ class Game:
         self.clock = pg.time.Clock()
         self.running = True
         self.font_name = pg.font.match_font(FONT_NAME)
+        self.load_data()
+
+    def load_data(self):
+        # load high score
+        self.dir = path.dirname(__file__)
+        # In python, to open a file you need to use something called 'a context'
+        # Here, we're opening the HS_FILE  w/ the `open()` command for reading and Writing, hence the `'w'`
+        # The reason we use `'w'` and no `'r'`, is that if the file does not exist, it will create the file
+        with open(path.join(self.dir, HS_FILE), 'r+') as f:
+            try:
+                self.highscore = int(f.read())
+            except:
+                self.highscore = 0
 
     def new(self):
         # Start a new game
@@ -32,7 +48,7 @@ class Game:
     def run(self):
         # Game Loop
         self.playing = True
-        while self.playing :
+        while self.playing:
             self.clock.tick(FPS)
             self.events()
             self.update()
@@ -42,10 +58,10 @@ class Game:
         # Game Loop  - update
         self.all_sprites.update()
 
-        # check if player hits a platform - only if playing
+        # check if player hits a platform - only if falling
         if self.player.vel.y > 0:
             hits = pg.sprite.spritecollide(self.player, self.platforms, False)
-            if hits: 
+            if hits:
                 self.player.pos.y = hits[0].rect.top
                 self.player.vel.y = 0
 
@@ -67,24 +83,24 @@ class Game:
         if len(self.platforms) == 0:
             self.playing = False
 
-        # spawn new platforms to keep some average number
+        # spawn new platforms to keep same average number
         while len(self.platforms) < 6:
             width = random.randrange(50, 100)
             p = Platform(random.randrange(0, WIDTH - width),
-                        random.randrange(-75, -30),
-                        width, 20)
+                         random.randrange(-75, -30),
+                         width, 20)
             self.platforms.add(p)
             self.all_sprites.add(p)
 
     def events(self):
         # Game Loop - events
         for event in pg.event.get():
-        # check for closing window
+            # check for closing window
             if event.type == pg.QUIT:
                 if self.playing:
                     self.playing = False
-            self.running = False
-        
+                self.running = False
+
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
                     self.player.jump()
@@ -93,7 +109,7 @@ class Game:
         # Game Loop - draw
         self.screen.fill(BGCOLOR)
         self.all_sprites.draw(self.screen)
-        self.draw_text(str(self.score), 22, WHITE, WIDTH / 2, 15)
+        self.draw_text(str(self.score), 20, WHITE, WIDTH / 2, 15)
         # *after* drawing everything, flip the display
         pg.display.flip()
 
@@ -101,19 +117,28 @@ class Game:
         # game splash/start sreen
         self.screen.fill(BGCOLOR)
         self.draw_text(TITLE, 48, WHITE, WIDTH / 2, HEIGHT / 4)
-        self.draw_text('Arrows to move, Space to jump', 22, WHITE, WIDTH / 2, HEIGHT / 2)
-        self.draw_text('Press a key to play', 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
+        self.draw_text('Arrows to move, Space to jump', 20, WHITE, WIDTH / 2, HEIGHT / 2)
+        self.draw_text('Press a key to play', 20, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
+        self.draw_text(f'High Score: {str(self.highscore)}', 20, WHITE, WIDTH / 2, 15)
+
         pg.display.flip()
         self.wait_for_key()
 
     def show_go_screen(self):
-        # game over screen
+        # game over/continue screen
         if not self.running:
             return
         self.screen.fill(BGCOLOR)
         self.draw_text('GAME OVER', 48, WHITE, WIDTH / 2, HEIGHT / 4)
-        self.draw_text(f'Score: {str(self.score)}', 22, WHITE, WIDTH / 2, HEIGHT / 2)
-        self.draw_text('Press a key to play again', 22, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
+        self.draw_text(f'Score: {str(self.score)}', 20, WHITE, WIDTH / 2, HEIGHT / 2)
+        self.draw_text('Press a key to play again', 20, WHITE, WIDTH / 2, HEIGHT * 3 / 4)
+        if self.score > self.highscore:
+            self.highscore = self.score
+            self.draw_text('NEW HIGH SCORE!', 20, WHITE, WIDTH / 2, HEIGHT / 2 + 40)
+            with open(path.join(self.dir, HS_FILE), 'w') as f:
+                f.write(str(self.score))
+        else:
+            self.draw_text(f'High Score: {str(self.highscore)}', 20, WHITE, WIDTH / 2, HEIGHT / 2 + 40)
         pg.display.flip()
         self.wait_for_key()
 

@@ -3,6 +3,9 @@ import pygame as pg
 from settings import *
 vec = pg.math.Vector2
 
+class Spritesheet:
+    # utuility class for loading and parsing sprite sheets
+
 class Player(pg.sprite.Sprite):
     def __init__(self, game):
         pg.sprite.Sprite.__init__(self)
@@ -21,7 +24,7 @@ class Player(pg.sprite.Sprite):
         hits = pg.sprite.spritecollide(self, self.game.platforms, False)
         self.rect.x -= 1    
         if hits:
-            self.vel.y = -PALYER_JUMP
+            self.vel.y = -PLAYER_JUMP
 
     def update(self):
         self.acc = vec(0, PLAYER_GRAV)
