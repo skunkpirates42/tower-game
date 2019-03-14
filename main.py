@@ -79,6 +79,7 @@ class Game:
                 if self.player.pos.y <  lowest.rect.centery:
                     self.player.pos.y = lowest.rect.top
                     self.player.vel.y = 0
+                    self.player.jumping = False
 
         # if player reaches top 1/4 of screen
         if self.player.rect.top <= HEIGHT / 4:
@@ -118,6 +119,9 @@ class Game:
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_SPACE:
                     self.player.jump()
+            if event.type == pg.KEYUP:
+                if event.key == pg.K_SPACE:
+                    self.player.jump_cut()
 
     def draw(self):
         # Game Loop - draw
