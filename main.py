@@ -26,11 +26,18 @@ class Game:
         # In python, to open a file you need to use something called 'a context'
         # Here, we're opening the HS_FILE  w/ the `open()` command for reading and Writing, hence the `'w'`
         # The reason we use `'w'` and no `'r'`, is that if the file does not exist, it will create the file
-        with open(path.join(self.dir, HS_FILE), 'r+') as f:
-            try:
-                self.highscore = int(f.read())
-            except:
-                self.highscore = 0
+        try:
+            with open(path.join(self.dir, HS_FILE), 'r+') as f:
+                try:
+                    self.highscore = int(f.read())
+                except:
+                    self.highscore = 0
+        except :
+            with open(path.join(self.dir, HS_FILE), 'w') as f:
+                try:
+                    self.highscore = int(f.read())
+                except:
+                    self.highscore = 0
 
     def new(self):
         # Start a new game

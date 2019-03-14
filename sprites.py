@@ -4,7 +4,15 @@ from settings import *
 vec = pg.math.Vector2
 
 class Spritesheet:
-    # utuility class for loading and parsing sprite sheets
+    # utility class for loading and parsing sprite sheets
+    def __init__(self, filename):
+        self.spritesheet = pygame.image.load(filename).convert()
+
+    def get_image(self, x, y, width, height):
+        # grab an image out of a alrger spritesheep
+        image = pg.Surface((width, height))
+        image.blit(self.spritesheep, (0, 0), ()x, y, width, height)
+        return image
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game):
