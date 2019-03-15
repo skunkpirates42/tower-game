@@ -15,7 +15,8 @@ Sounds designed by skunkpirates42 using [https://www.bfxr.net/](https://www.bfxr
       - __Notes on jumping:__ The jump in this game is variable, meaning that the longer you hold the spacebar down (to an extent), the higher the player will jump. Respectively if you tap the spacebar and let go, the player's jump will be very small
   - You can go __off the left or right side of the screen__. If you do, your player will appear on the opposite side that you left the screen from. <- *Keep this in mind for game play strategy*
 ### Powerups
-  - If your player makes contact with one of these powerups, You will get a large boost up into the sky, but be careful to land on a platform!
+  - If your player makes contact with one of these powerups,...![Screen Shot 2019-03-15 at 3 38 39 PM](https://user-images.githubusercontent.com/34561773/54458053-61247d00-4739-11e9-8f3d-bdc73c9c28dd.png) 
+ You will get a large boost up into the sky, but be careful to land on a platform!
 ### Enemies
   - There are flying propeller driven enemies! Do not make contact with these things or your game will be OVER
 
