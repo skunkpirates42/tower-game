@@ -1,5 +1,7 @@
 # Tower Game
 # Art from Kenny.nl
+# Sounds by skunkpirates42 -- built with https://www.bfxr.net/
+# Code is the implementation of KidsCanCode tutorial (http://kidscancode.org/lessons/) -- #2 on platform jumper game
 
 # File I/O (input/output)
 import pygame as pg
