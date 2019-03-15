@@ -27,8 +27,7 @@ class Game:
         self.dir = path.dirname(__file__)
         img_dir = path.join(self.dir, 'img')
         # In python, to open a file you need to use something called 'a context'
-        # Here, we're opening the HS_FILE  w/ the `open()` command for reading and Writing, hence the `'w'`
-        # The reason we use `'w'` and no `'r'`, is that if the file does not exist, it will create the file
+        # Here, we're opening the HS_FILE  w/ the `open()` command for reading and Writing
         try:
         # try to simplify this logic
             with open(path.join(self.dir, HS_FILE), 'r') as f:
@@ -170,7 +169,8 @@ class Game:
         # Game Loop - draw
         self.screen.fill(BGCOLOR)
         self.all_sprites.draw(self.screen)
-        self.draw_text(str(self.score), 20, WHITE, WIDTH / 2, 15)
+        self.draw_text(f'Score: {str(self.score)}', 18, WHITE, WIDTH - 50 , 15)
+        self.draw_text(f'High Score: {str(self.highscore)}', 18, WHITE, 70, 15)
         # *after* drawing everything, flip the display
         pg.display.flip()
 
