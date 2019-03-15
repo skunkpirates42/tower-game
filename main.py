@@ -170,7 +170,10 @@ class Game:
         self.screen.fill(BGCOLOR)
         self.all_sprites.draw(self.screen)
         self.draw_text(f'Score: {str(self.score)}', 18, WHITE, WIDTH - 50 , 15)
-        self.draw_text(f'High Score: {str(self.highscore)}', 18, WHITE, 70, 15)
+        if self.score > self.highscore:
+            self.draw_text(f'High Score: {str(self.score)}', 18, WHITE, 75, 15)
+        else: 
+            self.draw_text(f'High Score: {str(self.highscore)}', 18, WHITE, 75, 15)
         # *after* drawing everything, flip the display
         pg.display.flip()
 
