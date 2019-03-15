@@ -22,6 +22,8 @@ Sounds designed by skunkpirates42 using [https://www.bfxr.net/](https://www.bfxr
 ### Enemies
   - There are flying propeller driven enemies! ![Screen Shot 2019-03-15 at 3 46 52 PM](https://user-images.githubusercontent.com/34561773/54458150-96c96600-4739-11e9-8769-6ab7531c70d1.png)
  Do not make contact with these things or your game will be OVER
+### Platforms
+  - Once the platforms go scroll off the bottom of the screen, they no longer exist
 
 ### Steps to Set Up Locally
   - Clone this repository onto your machine
