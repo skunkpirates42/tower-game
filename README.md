@@ -18,7 +18,8 @@ Sounds designed by skunkpirates42 using [https://www.bfxr.net/](https://www.bfxr
   - If your player makes contact with one of these powerups,...![Screen Shot 2019-03-15 at 3 38 39 PM](https://user-images.githubusercontent.com/34561773/54458053-61247d00-4739-11e9-8f3d-bdc73c9c28dd.png) 
  You will get a large boost up into the sky, but be careful to land on a platform!
 ### Enemies
-  - There are flying propeller driven enemies! Do not make contact with these things or your game will be OVER
+  - There are flying propeller driven enemies! ![Screen Shot 2019-03-15 at 3 46 52 PM](https://user-images.githubusercontent.com/34561773/54458150-96c96600-4739-11e9-8769-6ab7531c70d1.png)
+ Do not make contact with these things or your game will be OVER
 
 ### Steps to Set Up Locally
   - Clone this repository onto your machine
