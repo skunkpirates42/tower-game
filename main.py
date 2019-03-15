@@ -28,7 +28,8 @@ class Game:
         # Here, we're opening the HS_FILE  w/ the `open()` command for reading and Writing, hence the `'w'`
         # The reason we use `'w'` and no `'r'`, is that if the file does not exist, it will create the file
         try:
-            with open(path.join(self.dir, HS_FILE), 'r+') as f:
+        # try to simplify this logic
+            with open(path.join(self.dir, HS_FILE), 'r') as f:
                 try:
                     self.highscore = int(f.read())
                 except:
@@ -36,7 +37,7 @@ class Game:
         except :
             with open(path.join(self.dir, HS_FILE), 'w') as f:
                 try:
-                    self.highscore = int(f.read())
+                    self.highscore = int(f.write())
                 except:
                     self.highscore = 0
         # load spritesheet image
@@ -80,7 +81,7 @@ class Game:
             self.mob_timer = now
             Mob(self)
         # hit mobs?
-        mob_hits = pg.sprite.spritecollide(self.player, self.mobs, False)
+        mob_hits = pg.sprite.spritecollide(self.player, self.mobs, False, pg.sprite.collide_mask)
         if mob_hits:
             self.playing = False
 
@@ -117,7 +118,7 @@ class Game:
             if pow.type == 'boost':
                 self.boost_sound.play()
                 self.player.vel.y = -BOOST_POWER
-                self.jumping = False
+                self.player.jumping = False
 
         # Die!
         if self.player.rect.bottom > HEIGHT:
