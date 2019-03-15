@@ -11,6 +11,7 @@ Sounds designed by skunkpirates42 using [https://www.bfxr.net/](https://www.bfxr
 
 ## Playing Tower Game
   - Play to get the highest score!
+  ![playing tower game](tower-game.gif)
 ### Moving
   - To __move left and right__, use the left ⬅️ and right ➡️ arrow keys 
   - To __jump__, use the spacebar
