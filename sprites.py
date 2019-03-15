@@ -10,7 +10,7 @@ class Spritesheet:
         self.spritesheet = pg.image.load(filename).convert()
 
     def get_image(self, x, y, width, height):
-        # grab an image out of a alrger spritesheep
+        # grab an image out of a larger spritesheet
         image = pg.Surface((width, height))
         image.blit(self.spritesheet, (0, 0), (x, y, width, height))
         image = pg.transform.scale(image, (width // 2, height // 2))
@@ -18,6 +18,7 @@ class Spritesheet:
 
 class Player(pg.sprite.Sprite):
     def __init__(self, game):
+        self._layer = PLAYER_LAYER
         self.groups = game.all_sprites
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
@@ -28,7 +29,7 @@ class Player(pg.sprite.Sprite):
         self.load_images()
         self.image = self.standing_frames[0]
         self.rect = self.image.get_rect()
-        self.rect.center = (WIDTH / 2, HEIGHT / 2)
+        self.rect.center = (40, HEIGHT - 100)
         self.pos = vec(40, HEIGHT - 100)
         self.vel = vec(0, 0)
         self.acc = vec(0, 0)
@@ -52,9 +53,9 @@ class Player(pg.sprite.Sprite):
 
     def jump(self):
         # jump only if we are standing on a platform
-        self.rect.x += 2
+        self.rect.y += 2
         hits = pg.sprite.spritecollide(self, self.game.platforms, False)
-        self.rect.x -= 2    
+        self.rect.y -= 2    
         if hits and not self.jumping:
             self.game.jump_sound.play()
             self.jumping = True
@@ -75,7 +76,7 @@ class Player(pg.sprite.Sprite):
         if keys[pg.K_RIGHT]:
             self.acc.x = PLAYER_ACC
         
-        ## apply friction
+        # apply friction
         self.acc.x += self.vel.x * PLAYER_FRICTION
         # equations of motion
         self.vel += self.acc
@@ -97,7 +98,7 @@ class Player(pg.sprite.Sprite):
             self.walking = False
         # show walking animation
         if self.walking:
-            if now - self.last_update > 200:
+            if now - self.last_update > 180:
                 self.last_update = now
                 self.current_frame= (self.current_frame + 1) % len(self.walk_frames_l)
                 bottom = self.rect.bottom
@@ -118,8 +119,28 @@ class Player(pg.sprite.Sprite):
                 self.rect.bottom = bottom
         self.mask = pg.mask.from_surface(self.image)
 
+class Cloud(pg.sprite.Sprite):
+    def __init__(self, game):
+        self._layer = CLOUD_LAYER
+        self.groups = game.all_sprites, game.clouds
+        pg.sprite.Sprite.__init__(self, self.groups)
+        self.game = game
+        self.image = choice(self.game.cloud_images)
+        self.image.set_colorkey(BLACK)
+        self.rect = self.image.get_rect()
+        scale = randrange(50, 101) / 100		
+        self.image = pg.transform.scale(self.image, (int(self.rect.width * scale),		
+                                                     int(self.rect.height * scale)))
+        self.rect.x = randrange(WIDTH - self.rect.width)
+        self.rect.y = randrange(-500, -50)
+
+    def update(self):
+        if self.rect.top > HEIGHT * 2:
+            self.kill()
+
 class Platform(pg.sprite.Sprite):
     def __init__(self, game, x, y):
+        self._layer = PLATFORM_LAYER
         self.groups = game.all_sprites, game.platforms
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
@@ -128,13 +149,14 @@ class Platform(pg.sprite.Sprite):
         self.image = choice(images)
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
-        self.rect.x = x 
+        self.rect.x = x
         self.rect.y = y
         if randrange(100) < POW_SPAWN_PCT:
             Pow(self.game, self)
 
 class Pow(pg.sprite.Sprite):
     def __init__(self, game, plat):
+        self._layer = POW_LAYER
         self.groups = game.all_sprites, game.powerups
         pg.sprite.Sprite.__init__(self, self.groups)
         self.game = game
