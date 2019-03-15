@@ -1,4 +1,4 @@
-# Tower Game  
+# Tower Game 🗼  
 
 #### Credits
 An implementation of KidsCanCode tutorial #2 -- [found here](http://kidscancode.org/lessons/)  
