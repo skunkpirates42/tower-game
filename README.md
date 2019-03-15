@@ -1,6 +1,8 @@
 # Tower Game 🗼  
 
-#### Credits
+#### Credits and ThankYou's
+A big thankyou to Chris Angelico (Rosuav) for being a Python ninja and a great mentor
+
 An implementation of KidsCanCode tutorial #2 -- [found here](http://kidscancode.org/lessons/)  
 
 Art by [Kenney.nl](https://www.kenney.nl/) <-- view Kenney's art
